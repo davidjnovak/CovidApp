@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.1" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/layout/activity_item_municipality_detail.xml" value="0.152" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/layout/activity_main.xml" value="0.152" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/layout/activity_municipalities.xml" value="0.2" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/layout/header.xml" value="0.6" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/layout/item_municipality.xml" value="0.25" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/layout/item_report.xml" value="0.4" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/layout/report.xml" value="0.4" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/layout/subitem_municipality.xml" value="0.16799999999999998" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/menu/covid_menu.xml" value="0.176" />
+        <entry key="..\:/Users/David/AndroidStudioProjects/davidnovak.uv.es/app/src/main/res/menu/location_menu.xml" value="0.19791666666666666" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
