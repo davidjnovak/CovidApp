@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,8 +27,7 @@ import java.io.StringWriter;
 import java.io.UnsupportedEncodingException;
 import java.io.Writer;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
+
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -41,15 +39,15 @@ public class MainActivity extends AppCompatActivity implements AdapterMunicipios
         protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String pms = "";
         HTTPConnector myConnector = new HTTPConnector();
-        myConnector.execute(pms);
+        myConnector.execute("");
 
 
         Button submitReport = findViewById(R.id.report);
         submitReport.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent reportIntent = new Intent(getApplicationContext(), Report.class);
+                reportIntent.putExtra("muniName", "");
                 startActivity(reportIntent);
             }
         });
@@ -142,26 +140,23 @@ public class MainActivity extends AppCompatActivity implements AdapterMunicipios
             }
             return municipioList;
         }
-        private String getMethod(String auxUrl){
-            String url = auxUrl;
+        private String getMethod(String myURL){
             Writer writer = new StringWriter();
+            String url = myURL;
             char[] buffer = new char[1024];
             try {
                 URL obj = new URL(url);
                 HttpURLConnection urlConnection = (HttpURLConnection) obj.openConnection();
                 urlConnection.setRequestMethod("GET");
-                urlConnection.setRequestProperty("user-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
-                urlConnection.setRequestProperty("accept", "application/json;");
-                urlConnection.setRequestProperty("accept-language", "es");
                 urlConnection.connect();
-                int responseCode = urlConnection.getResponseCode();
-                if (responseCode != HttpURLConnection.HTTP_OK) {
-                    throw new IOException("HTTP error code: " + responseCode);
+                int myResponseCode = urlConnection.getResponseCode();
+                if (myResponseCode != HttpURLConnection.HTTP_OK) {
+                    throw new IOException("HTTP error: " + myResponseCode);
                 }
                 BufferedReader in = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
-                int n;
-                while ((n = in.read(buffer)) != -1) {
-                    writer.write(buffer, 0, n);
+                int counter;
+                while ((counter = in.read(buffer)) != -1) {
+                    writer.write(buffer, 0, counter);
                 }
                 in.close();
             } catch (UnsupportedEncodingException e) {
@@ -208,6 +203,8 @@ public class MainActivity extends AppCompatActivity implements AdapterMunicipios
                 }
             }
 
+
+            //OLD PARSING METHOD
 ////            JSONObject myObject = new JSONObject(writer.toString());
 //            System.out.println(myObject.toString());
 //            JSONObject jsonObjectResult = myObject.getJSONObject("result");

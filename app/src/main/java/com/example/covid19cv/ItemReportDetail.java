@@ -1,7 +1,5 @@
 package com.example.covid19cv;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -9,13 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ItemReportDetail extends AppCompatActivity {
     DatabaseHelper myHelper;
@@ -50,8 +43,6 @@ public class ItemReportDetail extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String data = adapterView.getItemAtPosition(i).toString();
-
-
                 Cursor cursorData = myHelper.getItemID(data); //get the id associated with that data
                 int itemID = -1;
                 while (cursorData.moveToNext()) {

@@ -1,22 +1,14 @@
 package com.example.covid19cv;
 
-import android.app.Activity;
-import android.content.Context;
+
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.json.JSONException;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -37,7 +29,10 @@ public class Report extends AppCompatActivity {
         EditText dateBox = findViewById(R.id.startDate);
         EditText muniBox = findViewById(R.id.munitextbox);
         myHelper = new DatabaseHelper(this);
-        muniBox.setHint(muniName.toString());
+
+        //Handles if the user reports from main activity
+        if(muniName.toString().equals("")){muniBox.setHint("Municipality");}
+        else{muniBox.setHint(muniName.toString());}
         dateBox.setHint(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
         //----------------Onclicks-------------------
 
@@ -53,7 +48,6 @@ public class Report extends AppCompatActivity {
                 CheckBox cb5 = findViewById(R.id.aching); if (cb5.isChecked()){description+="Aching, ";}
                 CheckBox cb6 = findViewById(R.id.headache); if (cb6.isChecked()){description+="Headache, ";}
                 CheckBox cb7 = findViewById(R.id.congestion); if (cb7.isChecked()){description+="Congestion, ";}
-                CheckBox cb8 = findViewById(R.id.headache); if (cb8.isChecked()){description+="Headache, ";}
                 CheckBox cb9 = findViewById(R.id.nausea); if (cb9.isChecked()){description+="Nausea, ";}
                 CheckBox cb10 = findViewById(R.id.diarrhea); if (cb10.isChecked()){description+="Diarrhea, ";}
                 CheckBox cb11 = findViewById(R.id.tasteLoss); if (cb11.isChecked()){description+="Loss of Taste, ";}
@@ -97,7 +91,6 @@ public class Report extends AppCompatActivity {
                 CheckBox cb5 = findViewById(R.id.aching); if (cb5.isChecked()){cb5.toggle();}
                 CheckBox cb6 = findViewById(R.id.headache); if (cb6.isChecked()){cb6.toggle();}
                 CheckBox cb7 = findViewById(R.id.congestion); if (cb7.isChecked()){cb7.toggle();}
-                CheckBox cb8 = findViewById(R.id.headache); if (cb8.isChecked()){cb8.toggle();}
                 CheckBox cb9 = findViewById(R.id.nausea); if (cb9.isChecked()){cb9.toggle();}
                 CheckBox cb10 = findViewById(R.id.diarrhea); if (cb10.isChecked()){cb10.toggle();}
                 CheckBox cb11 = findViewById(R.id.tasteLoss); if (cb11.isChecked()){cb11.toggle();}
@@ -117,10 +110,10 @@ public class Report extends AppCompatActivity {
         if (myHelper!= null){
             boolean insert = myHelper.addData(data);
             if (insert){
-                makeToast("Entry Added!");
+                makeToast("Report Added!");
             }
             else{
-                makeToast("Unable to Add Your Journal. Sorry!");
+                makeToast("Unable to Add Your Report. Sorry!");
             }}
         else{
             makeToast("Your Helper is Null!");

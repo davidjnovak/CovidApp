@@ -42,37 +42,6 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
         this.municipios = parMunicipality;
     }
 
-    public void Init() {
-        // We read the JSON file and fill the “municipios” ArrayList
-        municipios=new ArrayList<Municipio>();
-        InputStream is = context.getResources().openRawResource(R.raw.data);
-        Writer writer = new StringWriter();
-        char[] buffer = new char[1024];
-        try {
-            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
-            int n;
-            while ((n = reader.read(buffer)) != -1) {
-                writer.write(buffer, 0, n);
-            }
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        //The String writer.toString() must be parsed in the municipalities ArrayList using JSONArray and JSONObject
-
-
-
-
-    }
-
-
     @Override
     public int getItemCount() {
         return municipios.size();
@@ -118,11 +87,8 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
 
     };
 
-
-
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
+
         holder.getTextView().setText(String.valueOf(municipios.get(position).getMunicipi()));
     }
 }

@@ -1,8 +1,6 @@
 package com.example.covid19cv;
 
 
-import java.io.Serializable;
-
 public class Municipio {
     private String municipi;
     private int code;

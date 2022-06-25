@@ -75,9 +75,4 @@ public class ItemMunicipalityDetail extends AppCompatActivity {
 
     }
 
-
-    public void switchViews(View view) {
-        Intent intent = new Intent(this, Report.class);
-        startActivity(intent);
-    }
 }
