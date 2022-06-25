@@ -1,7 +1,6 @@
 package com.example.covid19cv;
 
 import android.os.AsyncTask;
-import android.os.StrictMode;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,11 +14,12 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-class HTTPConnector extends AsyncTask<String, Void, JSONObject> {
+class HTTPConnector extends AsyncTask < String, Void, JSONObject > {
     private final String UrlString = "https://dadesobertes.gva.es/es/api/3/action/datastore_search?resource_id=7fd9a2bf-ffee-4604-907e-643a8009b04e&limit=1000";
 
     @Override
-    protected JSONObject doInBackground(String... urlString) {
+    protected JSONObject doInBackground(String...urlString) {
+        System.out.print("Initializing");
         JSONObject jsonObject = null;
         HttpURLConnection urlConnection = null;
         URL url = null;
@@ -53,7 +53,7 @@ class HTTPConnector extends AsyncTask<String, Void, JSONObject> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        StringBuilder sb = new StringBuilder();
+        StringBuilder myBuilder = new StringBuilder();
 
         String line = null;
         while (true) {
@@ -62,7 +62,7 @@ class HTTPConnector extends AsyncTask<String, Void, JSONObject> {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            sb.append(line + "\n");
+            myBuilder.append(line + "\n");
         }
         try {
             br.close();
@@ -70,7 +70,7 @@ class HTTPConnector extends AsyncTask<String, Void, JSONObject> {
             e.printStackTrace();
         }
 
-        String jsonString = sb.toString();
+        String jsonString = myBuilder.toString();
 
         try {
             jsonObject = new JSONObject(jsonString);
@@ -83,5 +83,6 @@ class HTTPConnector extends AsyncTask<String, Void, JSONObject> {
 
     @Override
     protected void onPostExecute(JSONObject municipality) {
+        System.out.print("finished..");
     }
 }

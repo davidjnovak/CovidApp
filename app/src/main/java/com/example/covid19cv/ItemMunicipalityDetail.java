@@ -10,6 +10,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class ItemMunicipalityDetail extends AppCompatActivity {
 
     private  String[] muni;
@@ -39,7 +43,6 @@ public class ItemMunicipalityDetail extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_municipality_detail);
-
         Intent receivedIntent = getIntent();
         String[] muniVals = receivedIntent.getStringArrayExtra("datas");
         this.muni = muniVals;

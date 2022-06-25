@@ -1,5 +1,4 @@
 package com.example.covid19cv;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,11 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Checkable;
-import android.widget.TextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONException;
 
@@ -23,25 +22,29 @@ import java.util.Calendar;
 
 public class Report extends AppCompatActivity {
     String description = "";
+    String time;
+    DatabaseHelper myHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        String[] reportData = new String[]{"firstItem"
-        };
-        Intent receivedIntent = getIntent();
-        String muniName = receivedIntent.getStringExtra("muniName");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.report);
+
+        Intent receivedIntent = getIntent();
+        String muniName;
+        muniName = receivedIntent.getStringExtra("muniName");
+
+        EditText dateBox = findViewById(R.id.startDate);
+        EditText muniBox = findViewById(R.id.munitextbox);
+        myHelper = new DatabaseHelper(this);
+        muniBox.setHint(muniName.toString());
+        dateBox.setHint(new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime()));
+        //----------------Onclicks-------------------
 
         Button submitReport = findViewById(R.id.submit);
         submitReport.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
 
-                System.out.println("Clicked");
-                Context context = getApplicationContext();
-                CharSequence text = "Report Submitted, feel better!";
-                int duration = Toast.LENGTH_SHORT;
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
                 description = "";
                 CheckBox cb1 = findViewById(R.id.fever); if (cb1.isChecked()){description+="Fever, ";}
                 CheckBox cb2 = findViewById(R.id.cough); if (cb2.isChecked()){description+="Cough, ";}
@@ -56,14 +59,36 @@ public class Report extends AppCompatActivity {
                 CheckBox cb11 = findViewById(R.id.tasteLoss); if (cb11.isChecked()){description+="Loss of Taste, ";}
                 CheckBox cb12 = findViewById(R.id.throat); if (cb12.isChecked()){description+="Sore Throat, ";}
 
-                description = description.substring(0, description.length()-2);
+
+                //checks to see if user set the time
+                //sets time to current time by default
+
+                String newMuni;
+                if(dateBox.getText().toString().equals("")){
+                    time = new SimpleDateFormat("dd/MM/yyyy").format(Calendar.getInstance().getTime());
+                }
+                else{
+                    time = dateBox.getText().toString();
+                }
+
+                //checks to see if the user set the newMuni- if not, muni is the name passed through intent
+                if(muniBox.getText().toString().equals("")){
+                    newMuni = muniName;
+                }
+                else{
+                    newMuni = muniBox.getText().toString();
+                }
+
+                if (description.length()>3){description = description.substring(0, description.length()-2);}// removes the very last comma
+                description = newMuni + " - " + time + "\n" + description;
+
+                addData(description);
             }
         });
 
 
         Button viewReports = findViewById(R.id.viewAll);
         viewReports.setOnClickListener(new View.OnClickListener() {
-
             public void onClick(View v) {
                 CheckBox cb1 = findViewById(R.id.fever); if (cb1.isChecked()){cb1.toggle();}
                 CheckBox cb2 = findViewById(R.id.cough); if (cb2.isChecked()){cb2.toggle();}
@@ -84,5 +109,24 @@ public class Report extends AppCompatActivity {
                 startActivity(reportIntent);
             }
         });
+    }
+
+    //---------------------------------------------
+
+    public void addData(String data){
+        if (myHelper!= null){
+            boolean insert = myHelper.addData(data);
+            if (insert){
+                makeToast("Entry Added!");
+            }
+            else{
+                makeToast("Unable to Add Your Journal. Sorry!");
+            }}
+        else{
+            makeToast("Your Helper is Null!");
+        }
+    }
+    public void makeToast(String message){
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }

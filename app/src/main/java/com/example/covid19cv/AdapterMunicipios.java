@@ -66,7 +66,12 @@ public class AdapterMunicipios extends RecyclerView.Adapter<AdapterMunicipios.Vi
             }
         }
         //The String writer.toString() must be parsed in the municipalities ArrayList using JSONArray and JSONObject
+
+
+
+
     }
+
 
     @Override
     public int getItemCount() {
